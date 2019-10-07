@@ -16,3 +16,8 @@ nohup ./runCLUMPP.sh <output directory> <K1> <K2> <replicate indices string> <pl
 
 # Align a .Q file to a reference .Q file. Assumes that these two .Q files have the same K value
 python Align_Adx_to_Ref.py --ref <reference name; assumes <ref>.Q exists> --in <target name; assumes <in>.Q and <in>.P exist> --out <output name; writes <out>.Q and <out>.P, depending on the mode> --r <alignment score exponent; |q_ref-q_in|^r>
+
+# Match the ADMIXTURE components among N ADMIXTURE .Q files
+python Match_Adx_for_series_of_K.py --in <input list of .Q files> --r <alignment score exponent> --out <output file>
+# example:
+python Match_Adx_for_series_of_K.py --in match_adx_example --r 3 --out match_adx_out

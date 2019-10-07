@@ -1,0 +1,16 @@
+#####################################################################
+# Run projection Admixture, from unrelateds to relateds, for K=2 to 12
+# This is the same as the 1M^5M^EUR.all dataset except filtered to only the Afr samples with at least one trait measurement.
+# The CTA.Afr_Eur.all is first pruned to remove relateds --> CTA.Afr_Eur2.ur, with the relateds in CTA.Afr_Eur2.rl
+# Admixture is first run on the unrelateds. Because we need to use the .P files, which is not combined using CLUMPP, we only use one replicate.
+# Then Admixture is run in projection mode on the CTA.Afr_Eur2.rl data
+
+# Admixture on unrelateds and unlinked sites (the "reference" data set)
+nohup ./runADX.sh <reference.bed> <K1> <K2> <replicate indices string, e.g. to run 3 replicates per K, could use "1 2 3"> <top output directory to make/populate>  >> <logfile> &
+
+# Project the entire dataset onto the unrelateds .P files
+nohup ./runADX_Proj.sh <data_to_project.bed> <reference.bed> <K1> <K2> <replicate indices string> <reference output directory> <new output directory> <name to give new output files> >> <logfile> &
+
+# Run CLUMPP
+nohup ./runCLUMPP.sh <output directory> <K1> <K2> <replicate indices string> <plink .fam file> <clumpp paramfile template> >> <logfile> &
+

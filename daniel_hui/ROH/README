@@ -1,1 +1,4 @@
-
+#7) runs of homozygosity
+for i in {1..22}; do bsub "~/plink --vcf /project/tishkofflab/data/genome/array/A6K_imputed/africa6k_public.topmed10.GOLD_REFINED.chr"$i".vcf.gz --homozyg --out africa6k_public.topmed10.GOLD_REFINED.chr"$i""; done
+cat *.indiv > allChr.hom.indiv
+python ../../scripts/sum_roh.py allChr.hom.indiv > allChr_summed.hom.indiv

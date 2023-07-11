@@ -1,3 +1,9 @@
+#Get individuals homozygous for any pLoF 
 zcat vep_all_chromosomes/base_rv_pick_allele_reg_tab_removeProblematic_F_MISSING.05_chr*.gz | grep -E "transcript_ablation|splice_acceptor_variant|splice_donor_variant|stop_gained|frameshift_variant"  > pLOFs/all_pLOFs_removeProblematic_F_MISSING.05.txt
 for i in {1..22}; do bsub "python scripts/pLOF_carrier.py pLOFs/all_pLOFs_removeProblematic_F_MISSING.05.txt genotypes/chr"$i"_A6K_corrected_geno.05.vcf.gz > pLOFs/homozygotes_chr"$i".txt"
 cut -f 3 homozygotes_chr*.txt  | sort | uniq  > hmz_pLOF_A6K_genes.txt
+
+#overlap genes w/ gnomad homozygous genes
+#https://www.nature.com/articles/s41586-020-2308-7
+grep -w -f hmz_pLOF_A6K_genes.txt supplementary_dataset_7_hom_ko_genes.txt  | wc -l
+        #421

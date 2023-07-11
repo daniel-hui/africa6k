@@ -1,0 +1,13 @@
+#3) histograms of allele counts
+        #all
+        for i in {1..22}; do python scripts/get_AFs_AC_rs_gz.py descriptives/A6K/chr"$i"_notSVM_A6K.vcf.gz > allele_frequencies/chr"$i"_AFs.txt  & done
+        head -n1 allele_frequencies/chr22_AFs.txt > allele_frequencies/allChr_AFs.txt ; cat allele_frequencies/chr* | grep -v "Category" >> allele_frequencies/allChr_AFs.txt
+        python scripts/prop_count_allChr.py allele_frequencies/allChr_AFs.txt > allele_frequencies/allChr_AFs_proportions.txt
+
+                #R
+                all <- read.table("Documents/TishkoffLab/A6K/allChr_AFs_proportions.txt", head=T)
+                ggplot(all, aes(x=Allele_count, group=Category, fill=Category, y=Percentage), size=50) + geom_bar(position="dodge", stat="identity") + xlim(0,20.5) + ggtitle("Proportions of A6K allele counts, all variants, 1-20")
+
+        #plofs
+        plof <- read.table("Documents/TishkoffLab/A6K/allChr_AFs_pLOFsOnly_proportions.txt", head=T)
+        ggplot(plof, aes(x=Allele_count, group=Category, fill=Category, y=Percentage), size=50) + geom_bar(position="dodge", stat="identity") + xlim(0,20.5) + ggtitle("Proportions of A6K allele counts, pLOFs only, 1-20")

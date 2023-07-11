@@ -1,1 +1,13 @@
+#2) tables and descriptives of variant annotations
+        #by functional category
+        for i in {1..22}; do python scripts/categories_known_novel_tab.py descriptives/A6K/without_rs/chr"$i".txt.gz variant_consequences_regulatory.txt vep_all_chromosomes/base_rv_pick_allele_reg_tab_chr"$i" > consequence_categories/chr"$i"_cons_counts_reg_newCategories.txt & done
+        python scripts/combine_cons_categories.py consequence_categories/  | column  -t -s $'\t'
 
+        #N multiallelic
+
+        #now multiallelic, previously biallelic
+                for i in {1..22}; do zcat descriptives/A6K_notSVM_F_MISSING.05/chr"$i"_notSVM_A6K_F_MISSING.05.vcf.gz | grep -v "#" | cut -f 1,2 | uniq -d > multiallelics/chr"$i"_mult_pos.txt & done
+
+                python2 scripts/nowMult_A6K.py multiallelics/allChr_mult_pos.txt dbsnp/biallelic_more.txt.gz > multiallelics/prev_bialellic_now_multiallelic.txt
+
+        #N snp and indel

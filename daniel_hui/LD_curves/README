@@ -1,1 +1,6 @@
-
+#8) LD decay curves (inset with long range vs ROH)
+        #nuance:
+                #only use pops N >= 50 (b/c the LD is noisy with lower N)
+                        #use R2 adjusted for sample size
+                #Use same exact SNPs in every population (SNPs must be >MAF in all populations (can't merge then filter at the end))
+                        #especially between 1KG, coverage difference or something I think

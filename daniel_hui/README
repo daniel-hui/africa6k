@@ -1,13 +1,20 @@
 Created July 3, 2023
 
 1) Variant annotation
+Variant_annotation/
 2) Descriptives of variant annotations
+Variant_descriptives/
 3) Histograms of allele counts
+Allele_count_histograms/
 4) pLoF homozygotes
+pLoF_homozygotes/
 5) Collector's curves
+Collectors_curves/
 6) Site frequency spectrum heatmap
+SFS_heatmap/
 7) Runs-of-homozygosity
 8) LD decay curves (inset with long range LD vs ROH)
+LD_curves/
 
 Misc:
 9) F vs N synonymous and pLoFs per ethnicity

@@ -4,6 +4,13 @@ Main difference between the two commands is:
 --pick_allele
 --flag_pick_allele
 
+Apart from included VEP options, these flags also out the following annotations:
+-GERP
+-SpliceAI (deleteriousness of splicing variants)
+-REVEL scores (missense variant deleterious)
+-Mastermind
+-ClinVar significance
+
 More info: https://useast.ensembl.org/info/docs/tools/vep/script/vep_options.html
 
 #one annotation per SNP
@@ -11,10 +18,3 @@ for i in {1..22} X; do bsub -o vep_all_chromosomes/base_rv_pick_allele_reg_tab_c
 
 #multiple annotations per SNP
 for i in {1..22} X; do bsub -o vep_all_chromosomes/flag_pick_allele/base_rv_pick_allele_reg_tab_chr"$i".o -e vep_all_chromosomes/flag_pick_allele/base_rv_pick_allele_reg_tab_chr"$i".e "export PERL5LIB=$PERL5LIB:$HOME/cpanm/lib/perl5 ; time ~/tools/ensembl-vep/vep --offline --flag_pick_allele -i descriptives/A6K_notSVM_F_MISSING.05/chr"$i"_notSVM_A6K_F_MISSING.05.vcf.gz --symbol --regulatory --biotype --af --af_1kg --af_gnomad --variant_class --plugin SpliceAI,snv=/project/tishkofflab/data_public/variant_annotation_references/SpliceAI/spliceai_scores.raw.snv.hg38.vcf.gz,indel=/project/tishkofflab/data_public/variant_annotation_references/SpliceAI/spliceai_scores.raw.indel.hg38.vcf.gz --plugin Mastermind,/project/tishkofflab/data_public/variant_annotation_references/Mastermind/mastermind_cited_variants_reference-2021.08.03-grch38.vcf.gz --custom /project/tishkofflab/data_public/variant_annotation_references/ClinVar/clinvar.vcf.gz,ClinVar,vcf,exact,0,CLNSIG,CLNREVSTAT,CLNDN --compress_output gzip --tab --force_overwrite -o vep_all_chromosomes/flag_pick_allele/base_rv_pick_allele_reg_tab_removeProblematic_F_MISSING.05_chr"$i""; done
-
-Apart from included VEP options, these flags also out the following annotations:
--GERP
--SpliceAI (deleteriousness of splicing variants)
--REVEL scores (missense variant deleterious)
--Mastermind
--ClinVar significance
